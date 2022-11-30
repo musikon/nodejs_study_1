@@ -6,7 +6,7 @@ const writeStream = createWriteStream('./new_file.txt')
 const readStream = createReadStream(csvFilePath, 'utf8')
 
 const options = {
-    delimiter: ';'
+  delimiter: ';',
 }
 
-readStream.pipe(csv(options)).pipe(writeStream);
+readStream.pipe(csv(options)).pipe(writeStream)
