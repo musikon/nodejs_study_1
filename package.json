@@ -3,15 +3,27 @@
   "version": "1.0.0",
   "description": "study",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "task1": "nodemon task1.js",
-    "task2": "nodemon task2.js"
+    "task1": "nodemon --exec npx babel-node task1.js",
+    "task2": "nodemon --exec npx babel-node task2.js",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.5",
+    "@babel/node": "^7.20.5",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/runtime": "^7.20.6",
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.0"
   },
   "dependencies": {
     "csvtojson": "^2.0.10"
