@@ -9,4 +9,22 @@ const options = {
   delimiter: ';',
 }
 
-readStream.pipe(csv(options)).pipe(writeStream)
+const startTime = Date.now()
+
+const writeFile = () => {
+  readStream.on('open', () => console.log('Start read'))
+  readStream.on('error', (e) => console.log(`Read error ${e}`))
+  readStream.on('end', () =>
+    console.log(`End read, time: ${Date.now() - startTime}ms`),
+  )
+
+  writeStream.on('open', () => console.log('Start write'))
+  writeStream.on('error', (e) => console.log(`Write error ${e}`))
+  writeStream.on('finish', () =>
+    console.log(`End write, time: ${Date.now() - startTime}ms`),
+  )
+
+  readStream.pipe(csv(options)).pipe(writeStream)
+}
+
+writeFile()
