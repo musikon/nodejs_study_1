@@ -4,8 +4,8 @@
   "description": "study",
   "main": "index.js",
   "scripts": {
-    "task1": "nodemon --exec npx babel-node task1.js",
-    "task2": "nodemon --exec npx babel-node task2.js",
+    "task1": "nodemon --exec npx babel-node home_work_1/task1.js",
+    "task2": "nodemon --exec npx babel-node home_work_1/task2.js",
     "lint": "eslint ."
   },
   "author": "",
