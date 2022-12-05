@@ -14,8 +14,8 @@ class UserService {
 
   // eslint-disable-next-line class-methods-use-this
   async get(query) {
-    const { sort, limit } = query
-    const users = await User.find()
+    const { sort, limit, filter } = query
+    const users = await User.find({ login: { $gte: filter } })
       .sort({ login: SORTING_VALUES[sort] })
       .limit(limit)
     return users
