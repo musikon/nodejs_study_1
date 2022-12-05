@@ -14,7 +14,7 @@ class UserController {
   // eslint-disable-next-line class-methods-use-this
   async get(req, res) {
     try {
-      const users = await UserService.get()
+      const users = await UserService.get(req.query)
       res.json(users)
     } catch (e) {
       res.status(500).json(e)

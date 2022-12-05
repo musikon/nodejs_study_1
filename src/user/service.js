@@ -1,5 +1,10 @@
 import User from './User'
 
+const SORTING_VALUES = {
+  asc: 1,
+  desc: -1,
+}
+
 class UserService {
   // eslint-disable-next-line class-methods-use-this
   async create(user) {
@@ -8,8 +13,11 @@ class UserService {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async get() {
+  async get(query) {
+    const { sort, limit } = query
     const users = await User.find()
+      .sort({ login: SORTING_VALUES[sort] })
+      .limit(limit)
     return users
   }
 
