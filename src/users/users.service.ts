@@ -1,20 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import {InjectModel} from "@nestjs/mongoose";
-import {User, UserDocument} from "./user.schema";
-import {Model} from "mongoose";
-import {CreateUserDto, UpdateUserDto} from "./dto/create-user.dto";
+import {InjectModel} from "@nestjs/sequelize";
+import {User} from "./users.model";
+import {CreateUserDto} from "./dto/create-user.dto";
+import {RolesService} from "../roles/roles.service";
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-    async create(createCatDto: CreateUserDto): Promise<User> {
-        const createUser = new this.userModel(createCatDto);
-        return createUser.save();
+    constructor(@InjectModel(User) private userRepository: typeof User,
+                private roleService: RolesService) {}
+
+    async createUser(dto: CreateUserDto) {
+        const user = await this.userRepository.create(dto);
+        const role = await this.roleService.getRoleById("User")
+        await user.$set('roles', [role.id])
+        user.roles = [role]
+        return user;
     }
 
+    async getAllUsers() {
+        const users = await this.userRepository.findAll({include: {all: true}});
+        return users;
+    }
 
-    async getAll(): Promise<User[]> {
-        return this.userModel.find().exec();
+    async getUserByEmail(email: string) {
+        const user = await this.userRepository.findOne({where: {email}, include: {all: true}})
+        return user;
     }
 }

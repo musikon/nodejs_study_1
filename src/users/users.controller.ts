@@ -1,18 +1,25 @@
-import {Body, Controller, Get, Post, Put} from '@nestjs/common';
+import {Body, Controller, Get, Post, UseGuards} from '@nestjs/common';
+import {ApiOperation, ApiResponse, ApiTags} from "@nestjs/swagger";
+import {CreateUserDto} from "./dto/create-user.dto";
 import {UsersService} from "./users.service";
-import {CreateUserDto, UpdateUserDto} from "./dto/create-user.dto";
+import {User} from "./users.model";
+import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService) {}
-
+    constructor(private userService: UsersService) {}
+    @ApiOperation({ summary: "Create user" })
+    @ApiResponse({ status: 200, type: User })
     @Post()
     create(@Body() userDto: CreateUserDto) {
-        return this.usersService.create(userDto);
+       return this.userService.createUser(userDto)
     }
-
+    @ApiOperation({ summary: "Get users" })
+    @ApiResponse({ status: 200, type: [User] })
+    @UseGuards(JwtAuthGuard)
     @Get()
-    getAll() {
-        return this.usersService.getAll();
+    getAllUsers() {
+        return this.userService.getAllUsers()
     }
 }
