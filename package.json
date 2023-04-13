@@ -6,6 +6,7 @@
   "scripts": {
     "task1": "nodemon --exec npx babel-node home_work_1/task1.js",
     "task2": "nodemon --exec npx babel-node home_work_1/task2.js",
+    "start": "nodemon --exec npx babel-node index.js",
     "lint": "eslint ."
   },
   "author": "",
@@ -26,6 +27,10 @@
     "prettier": "^2.8.0"
   },
   "dependencies": {
-    "csvtojson": "^2.0.10"
+    "cross-env": "^7.0.3",
+    "csvtojson": "^2.0.10",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.7.5"
   }
 }
